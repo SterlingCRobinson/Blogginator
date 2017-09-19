@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BLOGGINATOR</title>
+		<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', 'http://fonts.googleapis.com/css?family=Raleway:400,700' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+  	<div id="sidebar">
+			<ul>
+  			<li class="category">ZEE BLOGGINATOR</li>
+  			<li><%= link_to "All Posts", root_path %></li>
+  			<li><%= link_to "About", about_path %></li>
+  		</ul>
+  	</div>
+
+  	<div id="main_content">
+  		<div id="header">
+  			<% if user_signed_in? %>
+  				<p>Welcome hommie</p>
+  			<% else %>
+  				<%= link_to "Log in", new_user_session_path %> &nbsp&nbsp
+  				<%= link_to "Sign up", new_user_registration_path %> &nbsp&nbsp
+  			<% end %>
+  		
+			<% if current_page?(root_path) %>
+  				
+          	<% elsif current_page?(about_path) %>
+            	<p>About</p>
+          	<% else %>
+            	<%= link_to "All Posts", root_path %>
+          	<% end %>
+  				
+          	<% if user_signed_in? %>
+    			<div class="buttons">
+    				<button class="button"><%= link_to "New Post", new_post_path %></button>
+    				<button class="button"><%= link_to("Log Out", destroy_user_session_path, method: :delete) %>﻿</button>
+    			</div>
+          	<% end %>
+		</div>
+		<%= yield %>
+		</div>	
+  </body>
+</html>
